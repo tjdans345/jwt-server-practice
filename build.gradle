@@ -19,6 +19,9 @@ repositories {
 }
 
 dependencies {
+    //jwt 라이브러리
+    implementation 'com.auth0:java-jwt:3.10.2'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
