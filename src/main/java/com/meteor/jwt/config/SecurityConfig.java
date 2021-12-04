@@ -2,6 +2,7 @@ package com.meteor.jwt.config;
 
 import com.meteor.jwt.filter.MyFiler1;
 import com.meteor.jwt.filter.MyFiler3;
+import com.meteor.jwt.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(corsFilter) // cors 정책에서 벗어날 수 있게하는 설정 // @CrossOrigin(인증X), 시큐리티 필터에 등록 인증(O)
                 .formLogin().disable() // 여기까지는 jwt 방식을 사용할 때 고정이다.
                 .httpBasic().disable() // Bearer 방식을 쓰기위한 설정
+                .addFilter(new JwtAuthenticationFilter(authenticationManager())) // AuthenticationManger 라는 파라미터를 던져줘야한다. 매니저를 통해서 로그인을 진행하기 때문에
                 .authorizeRequests()
                 .antMatchers("/api/v1/user/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")

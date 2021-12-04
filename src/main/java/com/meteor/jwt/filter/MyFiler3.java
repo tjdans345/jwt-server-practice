@@ -22,7 +22,7 @@ public class MyFiler3 implements Filter {
             System.out.println("POST 요청됨");
             String headerAuth = req.getHeader("Authorization");
             System.out.println(headerAuth);
-            System.out.println("필터1");
+            System.out.println("필터3");
             if (headerAuth.equals("meteor")) {
                 // 프로세스를 계속 진행시키기 위해서는 체인에 넘겨줘야한다.
                 chain.doFilter(req, res);
