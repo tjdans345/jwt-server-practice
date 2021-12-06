@@ -15,7 +15,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 // 스프링 시큐리티에서 UsernamePasswordAuthenticationFilter 가 있음
