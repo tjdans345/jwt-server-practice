@@ -11,10 +11,8 @@ public class MyFiler1 implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
         System.out.println("필터1");
+        // 프로세스를 계속 진행하려면 체인에 넘겨줘야한다.
         chain.doFilter(request, response);
-
-
     }
 }

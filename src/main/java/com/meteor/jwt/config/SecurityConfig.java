@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 세션을 사용하지 않겠다는 설정 stateless 서버로 만들겠다
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(corsFilter) // cors 정책에서 벗어날 수 있게하는 설정 // @CrossOrigin(인증X), 시큐리티 필터에 등록 인증(O)
+                .addFilter(corsFilter) // cors 정책에서 벗어날 수 있게하는 설정 // @CrossOrigin(인증X), 시큐리티 필터에 등록 인증(O) << 인증이 필요할 때
                 .formLogin().disable() // 여기까지는 jwt 방식을 사용할 때 고정이다.
                 .httpBasic().disable() // Bearer 방식을 쓰기위한 설정
                 .addFilter(new JwtAuthenticationFilter(authenticationManager())) // authenticationManager 라는 파라미터를 던져줘야한다. 매니저를 통해서 로그인을 진행하기 때문에
