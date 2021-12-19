@@ -26,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    // 기본적으로 시큐리티 필터가 먼저 실행되고 커스텀 필터가 실행이된다.
+    // 커스텀필터가 시큐리티 필터보다 먼저 실행되게 하려면 SecurityContextPersistenceFilter 보다 먼저 타게 설정하면 된다.
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 스프링 필터를 타기전에 먼저 커스텀한 필터를 타게 만든다.
