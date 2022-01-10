@@ -71,14 +71,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         System.out.println("successfulAuthentication 실행됨 : 인증이 완료되었다는 것");
+
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
+
         // RSA 방식은 아니고 Hash 암호 방식
         String jwtToken = JWT.create()
                 .withSubject("meteor토큰")
                 .withExpiresAt(new Date(System.currentTimeMillis()+(60000*10)))
-                        .withClaim("id", principalDetails.getUser().getId()) // withClaim 은 비공개 클레임 -> 넣고 싶은 값 아무거나 넣어도 된다.
-                                .withClaim("username", principalDetails.getUsername())
-                                        .sign(Algorithm.HMAC512("meteor"));
+                .withClaim("id", principalDetails.getUser().getId()) // withClaim 은 비공개 클레임 -> 넣고 싶은 값 아무거나 넣어도 된다.
+                .withClaim("username", principalDetails.getUsername())
+                 .sign(Algorithm.HMAC512("meteor"));
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
 

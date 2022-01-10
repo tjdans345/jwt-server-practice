@@ -3,6 +3,7 @@ package com.meteor.jwt.config;
 import com.meteor.jwt.filter.MyFiler1;
 import com.meteor.jwt.filter.MyFiler3;
 import com.meteor.jwt.jwt.JwtAuthenticationFilter;
+import com.meteor.jwt.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 스프링 필터를 타기전에 먼저 커스텀한 필터를 타게 만든다.
-        http.addFilterBefore(new MyFiler3(), SecurityContextPersistenceFilter.class); // 따로 파일을 만들어서 걸어줘도 된다.
+//        http.addFilterBefore(new MyFiler3(), SecurityContextPersistenceFilter.class); // 따로 파일을 만들어서 걸어줘도 된다.
         http.csrf().disable();
         // 세션을 사용하지 않겠다는 설정 stateless 서버로 만들겠다
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -40,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable() // 여기까지는 jwt 방식을 사용할 때 고정이다.
                 .httpBasic().disable() // Bearer 방식을 쓰기위한 설정
                 .addFilter(new JwtAuthenticationFilter(authenticationManager())) // authenticationManager 라는 파라미터를 던져줘야한다. 매니저를 통해서 로그인을 진행하기 때문에
+                .addFilter(new JwtAuthorizationFilter(authenticationManager())) // authenticationManager 라는 파라미터를 던져줘야한다. 매니저를 통해서 로그인을 진행하기 때문에
                 .authorizeRequests()
                 .antMatchers("/api/v1/user/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
